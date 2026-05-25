@@ -1,0 +1,7 @@
+MEMORY_RECOMPOSITION_DEMO: PASS
+active_memory_count: 2
+superseded_memory_count: 1
+discarded_candidate_count: 1
+context_budget_ok: true
+
+STDERR:

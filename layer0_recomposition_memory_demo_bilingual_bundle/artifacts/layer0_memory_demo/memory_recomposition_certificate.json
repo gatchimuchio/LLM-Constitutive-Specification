@@ -1,0 +1,216 @@
+{
+  "demo": "layer0_memory_recomposition_demo",
+  "version": "v0.1",
+  "claim": "Layer-0 functional roles can be recomposed into a deterministic non-LLM memory subsystem.",
+  "is_llm": false,
+  "uses_remote_llm": false,
+  "recomposition_map": [
+    {
+      "layer0_role": "TOKEN_OR_SYMBOL_SPACE",
+      "llm_role": "represents linguistic units",
+      "memory_role": "serializable event and memory record space"
+    },
+    {
+      "layer0_role": "CONTEXT_CONDITIONING_STATE",
+      "llm_role": "conditions output on prior context",
+      "memory_role": "rolling user/project/task context used for memory updates"
+    },
+    {
+      "layer0_role": "LEARNED_PARAMETERIZED_TRANSFORM",
+      "llm_role": "maps context to conditional output surface",
+      "memory_role": "summarizer/extractor module; deterministic stand-in in this demo"
+    },
+    {
+      "layer0_role": "CONDITIONAL_LINGUISTIC_OUTPUT_SURFACE",
+      "llm_role": "candidate linguistic outputs",
+      "memory_role": "candidate memory operations: create/update/supersede/discard"
+    },
+    {
+      "layer0_role": "SEQUENCE_MODELING_OBJECTIVE_OR_EQUIVALENT_FITTING_CRITERION",
+      "llm_role": "fits the model to language sequences",
+      "memory_role": "retention objective: preserve future-relevant state under a context budget"
+    },
+    {
+      "layer0_role": "DECODING_OR_EMISSION_INTERFACE",
+      "llm_role": "emits observable tokens/text",
+      "memory_role": "emits durable memory writes and compiled context blocks"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "E001",
+      "source": "user",
+      "text": "Going forward, prefer concise Japanese business-style responses for this repository work."
+    },
+    {
+      "event_id": "E002",
+      "source": "user",
+      "text": "Project note: the memory architecture should separate raw event provenance, summary generation, retention policy, lifecycle state, and context compilation."
+    },
+    {
+      "event_id": "E003",
+      "source": "user",
+      "text": "Temporary scratch note: try a funny name for the demo, but do not remember this."
+    },
+    {
+      "event_id": "E004",
+      "source": "user",
+      "text": "Update the previous language preference: Japanese remains preferred, but technical reports in this repository should be written in English."
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "cand_be5f83cc723f",
+      "event_id": "E001",
+      "key": "user.preference.language",
+      "summary": "Going forward prefer concise Japanese business-style responses for this repository work",
+      "tags": [
+        "user_preference",
+        "project_state"
+      ],
+      "retention": "long_term",
+      "score": 8,
+      "raw_event_hash": "66b10f8e7fd8e413dd3db118d8efa491",
+      "operation_hint": "upsert"
+    },
+    {
+      "candidate_id": "cand_a67248db42c5",
+      "event_id": "E002",
+      "key": "project.memory_architecture",
+      "summary": "Project note the memory architecture should separate raw event provenance summary generation retention policy lifecycle state and context compilation",
+      "tags": [
+        "project_state"
+      ],
+      "retention": "session",
+      "score": 3,
+      "raw_event_hash": "f1edb49ea6501f65a0e4765666c6a97f",
+      "operation_hint": "upsert"
+    },
+    {
+      "candidate_id": "cand_b7439cdea3b3",
+      "event_id": "E003",
+      "key": "general.note.b3ddb947",
+      "summary": "Temporary scratch note try a funny name for the demo but do not remember this",
+      "tags": [
+        "transient"
+      ],
+      "retention": "discard",
+      "score": 0,
+      "raw_event_hash": "b3ddb9477be4cb03a7ceecaf7c1b1479",
+      "operation_hint": "discard"
+    },
+    {
+      "candidate_id": "cand_d27014bb94a3",
+      "event_id": "E004",
+      "key": "user.preference.language",
+      "summary": "Update the previous language preference Japanese remains preferred but technical reports in this repository should be written in English",
+      "tags": [
+        "user_preference",
+        "project_state",
+        "update"
+      ],
+      "retention": "long_term",
+      "score": 7,
+      "raw_event_hash": "9104530f3a2cff7c98689f9019e17f59",
+      "operation_hint": "upsert"
+    }
+  ],
+  "active_memory": [
+    {
+      "memory_id": "mem_b38013c78d33",
+      "version": 2,
+      "key": "user.preference.language",
+      "summary": "Update the previous language preference Japanese remains preferred but technical reports in this repository should be written in English",
+      "tags": [
+        "project_state",
+        "update",
+        "user_preference"
+      ],
+      "status": "active",
+      "created_from_event": "E001",
+      "updated_from_event": "E004",
+      "raw_event_hashes": [
+        "66b10f8e7fd8e413dd3db118d8efa491",
+        "9104530f3a2cff7c98689f9019e17f59"
+      ],
+      "supersedes": "mem_b38013c78d33:v1"
+    },
+    {
+      "memory_id": "mem_d268f09298d1",
+      "version": 1,
+      "key": "project.memory_architecture",
+      "summary": "Project note the memory architecture should separate raw event provenance summary generation retention policy lifecycle state and context compilation",
+      "tags": [
+        "project_state"
+      ],
+      "status": "active",
+      "created_from_event": "E002",
+      "updated_from_event": "E002",
+      "raw_event_hashes": [
+        "f1edb49ea6501f65a0e4765666c6a97f"
+      ],
+      "supersedes": null
+    }
+  ],
+  "discarded_candidates": [
+    {
+      "candidate_id": "cand_b7439cdea3b3",
+      "event_id": "E003",
+      "key": "general.note.b3ddb947",
+      "summary": "Temporary scratch note try a funny name for the demo but do not remember this",
+      "tags": [
+        "transient"
+      ],
+      "retention": "discard",
+      "score": 0,
+      "raw_event_hash": "b3ddb9477be4cb03a7ceecaf7c1b1479",
+      "operation_hint": "discard"
+    }
+  ],
+  "operation_log": [
+    {
+      "operation": "create",
+      "memory_id": "mem_b38013c78d33",
+      "version": 1,
+      "event_id": "E001",
+      "key": "user.preference.language"
+    },
+    {
+      "operation": "create",
+      "memory_id": "mem_d268f09298d1",
+      "version": 1,
+      "event_id": "E002",
+      "key": "project.memory_architecture"
+    },
+    {
+      "operation": "discard",
+      "candidate_id": "cand_b7439cdea3b3",
+      "event_id": "E003",
+      "key": "general.note.b3ddb947",
+      "reason": "retention_policy_discard"
+    },
+    {
+      "operation": "supersede_and_update",
+      "memory_id": "mem_b38013c78d33",
+      "version": 2,
+      "event_id": "E004",
+      "key": "user.preference.language",
+      "supersedes": "mem_b38013c78d33:v1"
+    }
+  ],
+  "compiled_context": {
+    "budget_chars": 420,
+    "used_chars": 354,
+    "context_budget_ok": true,
+    "compiled_context": "- [project.memory_architecture v1] Project note the memory architecture should separate raw event provenance summary generation retention policy lifecycle state and context compilation\n- [user.preference.language v2] Update the previous language preference Japanese remains preferred but technical reports in this repository should be written in English",
+    "included_memory_count": 2
+  },
+  "invariants": {
+    "all_active_memories_have_provenance_hash": true,
+    "at_least_one_candidate_discarded": true,
+    "at_least_one_memory_superseded": true,
+    "context_budget_ok": true,
+    "no_discarded_candidate_became_active": true
+  },
+  "status": "PASS"
+}
