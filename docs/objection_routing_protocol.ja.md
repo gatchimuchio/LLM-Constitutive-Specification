@@ -1,9 +1,9 @@
-# Objection Routing Protocol
+# Objection Routing Protocol — v4
 
-| Objection | Routing | Response |
-|---|---|---|
-| 「定義依存だ」 | 定理定義域への攻撃 | 反論ではない。数学的定理は定義・公理依存で成立する。より良い定義域公理、または有効反例を提示する必要がある。 |
-| 「全LLMの経験検査ではない」 | カテゴリ錯誤 | 正しいが無関係。本稿は形式定理であり、経験的witness mappingはB層で扱う。 |
-| 「LLM定義が私見だ」 | 反証可能 | 公式provider用例とmodel-family witnessで照合する。 |
-| 「LLMだがLayer 0を欠く候補がある」 | 有効ルート | システム、通常技術用語上のLLM分類根拠、欠落役割、全機能同値物の不存在を提示する。 |
-| 「未来アーキテクチャが違う」 | 実装分岐への攻撃 | その未来システムがLLMであり、かつLayer 0同値物を欠く場合のみ有効。 |
+- candidate-local機能欠落 → L0-Aへ
+- execution evidence不足 → `SUSPEND`
+- construction method論争 → provenance profileへ
+- API/emit論争 → operational wrapperへ
+- 同一familyでの反復性 → L0-Bへ
+- 異種family共通性 → L0-Cへ
+- 普遍性要求 → 現行scope外。L0-D/Eの証拠蓄積後に再開する

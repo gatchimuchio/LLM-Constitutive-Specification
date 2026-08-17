@@ -1,50 +1,38 @@
-.PHONY: audit verify test clean help
+.PHONY: help audit test verify test-all update-golden legacy-v3-audit memory-recomposition-demo
 
 PYTHON ?= python3
 PYFLAGS ?= -S
-OUTDIR ?= artifacts
-SCRIPT := llm_minimal_architecture_groups_v3_0.py
-MANIFEST := $(OUTDIR)/sha256_manifest.txt
+V4_SCRIPT := layer0_functional_conformance_v4.py
+STRICT_MANIFEST := REPOSITORY_GIT_BLOB_MANIFEST.txt
 
 help:
 	@echo "Targets:"
-	@echo "  make audit   - regenerate artifacts"
-	@echo "  make verify  - verify artifacts against sha256 manifest"
-	@echo "  make test    - run audit and verify"
-	@echo "  make clean   - remove generated artifacts directory and Python cache"
+	@echo "  make audit          - run v4 built-in conformance self-test"
+	@echo "  make test           - run v4 unittest suite"
+	@echo "  make verify         - verify strict tracked inventory/content manifest"
+	@echo "  make test-all       - audit + test + verify; never updates golden state"
+	@echo "  make update-golden CONFIRM=1 - explicitly rewrite strict manifest"
+	@echo "  make legacy-v3-audit - regenerate v3 artifacts into /tmp only"
+	@echo "  make memory-recomposition-demo - run retained recomposition demo"
 
-$(OUTDIR):
-	mkdir -p $(OUTDIR)
+audit:
+	$(PYTHON) $(PYFLAGS) $(V4_SCRIPT) --self-test
 
-audit: $(OUTDIR)
-	$(PYTHON) $(PYFLAGS) $(SCRIPT) --outdir $(OUTDIR)
+test:
+	$(PYTHON) -m unittest -v tests/test_layer0_v4.py
 
 verify:
-	$(PYTHON) $(PYFLAGS) scripts/verify_manifest.py $(MANIFEST)
+	$(PYTHON) $(PYFLAGS) scripts/strict_manifest.py verify --manifest $(STRICT_MANIFEST)
 
-test: audit verify
+test-all: audit test verify
 
-clean:
-	rm -rf $(OUTDIR) __pycache__
+update-golden:
+	@test "$(CONFIRM)" = "1" || (echo "ERROR: set CONFIRM=1 to rewrite golden manifest" && exit 2)
+	$(PYTHON) $(PYFLAGS) scripts/strict_manifest.py generate --manifest $(STRICT_MANIFEST) --confirm
 
-.PHONY: obligation-graph verify-obligation-graph test-all
+legacy-v3-audit:
+	rm -rf /tmp/layer0-v3-artifacts
+	$(PYTHON) $(PYFLAGS) llm_minimal_architecture_groups_v3_0.py --outdir /tmp/layer0-v3-artifacts
 
-ABLATION_DIR := appendices/layer_a_obligation_graph_enumeration_v0_5
-ABLATION_SCRIPT := $(ABLATION_DIR)/layer_a_obligation_graph_enumeration_v0_5.py
-
-obligation-graph:
-	$(PYTHON) $(PYFLAGS) $(ABLATION_SCRIPT) --outdir $(ABLATION_DIR)
-
-verify-obligation-graph:
-	$(PYTHON) $(PYFLAGS) scripts/verify_manifest.py $(ABLATION_DIR)/sha256_manifest.txt
-
-test-all: test obligation-graph verify-obligation-graph manifest-repository verify-repository
-
-
-.PHONY: manifest-repository verify-repository
-
-manifest-repository:
-	$(PYTHON) $(PYFLAGS) scripts/generate_repository_manifest.py
-
-verify-repository:
-	$(PYTHON) $(PYFLAGS) scripts/verify_manifest.py REPOSITORY_SHA256_MANIFEST.txt
+memory-recomposition-demo:
+	$(PYTHON) $(PYFLAGS) layer0_recomposition_memory_demo_bilingual_bundle/demos/layer0_memory_recomposition_demo.py --outdir /tmp/layer0-memory-demo

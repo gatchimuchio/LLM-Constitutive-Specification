@@ -1,13 +1,11 @@
-# Claim Layers
+# Claim Layers — v4
 
-| Layer | Claim type | Support | Status label |
-|---|---|---|---|
-| Layer 0 | formal mathematical functional-necessity theorem | ordinary technical usage + role-separation argument | `FORMAL_MATHEMATICAL_FUNCTIONAL_NECESSITY_THEOREM` |
-| Layer A | declared finite obligation-graph enumeration | all 64 subsets checked deterministically | `PROVEN_BY_EXHAUSTIVE_ENUMERATION_OF_DECLARED_OBLIGATION_GRAPH` |
-| Layer B | public LLM-family witness mapping | official references and public architecture descriptions | `SUPPORTED_BY_PUBLIC_WITNESSES` |
-| Layer 1+ | implementation branch analysis | Transformer, Dense, MoE, SSM, recurrent, diffusion-style and hybrid mappings | `IMPLEMENTATION_BRANCH_MAPPING` |
+| Layer | Claim | Authorization |
+|---|---|---|
+| L0-A | candidate satisfies Functional Core | executable |
+| L0-B | responsibility recurrence within an architecture family | evidence-dependent |
+| L0-C | cross-family mechanism recurrence | OPEN |
+| L0-D | scoped provisional principle | OPEN |
+| L0-E | transfer candidate to unobserved families | OPEN |
 
-## Non-overclaim rule
-
-Layer A validates the declared finite graph. Layer B supports public-world mapping. Neither should be described as empirical inspection of all existing or future deployed LLMs.
-
+No automatic promotion to universal/final/unique-minimum claims.

@@ -1,12 +1,13 @@
 cff-version: "1.2.0"
-title: "Layer-0 Mathematical Functional Necessity Theorem for Large Language Models"
-message: "If you use this repository, please cite it as a reproducible term-explication and finite-specification audit package for the Layer-0 functional minimum of Large Language Models."
+title: "Layer-0 Functional Conformance Framework"
+message: "Please cite the tagged version used. Software is MIT-licensed; documentation and research artifacts are CC BY 4.0 as described in LICENSE."
 type: software
 authors:
   - family-names: "Ohira"
     given-names: "Teppei"
-version: "v3.0"
-date-released: "2026-04-27"
+version: "v4.0-provisional"
+date-released: "2026-08-17"
+repository-code: "https://github.com/gatchimuchio/LLM-Layer-0-Functional-Compliance-Specification"
 abstract: >
-  This repository provides a formal mathematical functional-necessity theorem for the Layer-0 minimum of Large Language Models, a declared obligation-graph enumeration over the six-role set, and public witness tables separating the LLM root from Transformer, Dense, MoE, SSM, recurrent, and frontier implementation branches.
+  An implementation-neutral candidate-local functional conformance framework for Layer-0 language-system responsibilities. The v3 six-role theorem package is retained as legacy reproducibility material and is not the current universal/unique-minimum claim surface.
 license: MIT

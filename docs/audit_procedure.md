@@ -1,23 +1,26 @@
 # Audit Procedure
 
-## Commands
+## Current gate
 
 ```bash
-make audit
-make verify
 make test-all
 ```
 
-## Expected outputs
+This runs:
 
-- Main artifact generation completes.
-- `artifacts/sha256_manifest.txt` verifies.
-- Layer A obligation graph appendix reports `proper_subset_pass_count = 0`.
-- Repository manifest verifies.
+1. v4 self-test
+2. v4 unittest suite
+3. strict repository inventory/content verification
 
-## Interpretation
+`make test-all` MUST NOT regenerate golden state.
 
-The audit verifies repository consistency, artifact determinism, manifest integrity, and the declared Layer A obligation graph.
+Golden state may be rewritten only by explicit operator action:
 
-It does not assign calibrated calibrated probability estimate and does not empirically inspect all external LLMs.
+```bash
+make update-golden CONFIRM=1
+```
 
+## Status semantics
+
+Candidate conformance uses `PASS / FAIL / SUSPEND / NOT_APPLICABLE`.
+Unknown evidence is `SUSPEND`, never implicit PASS.

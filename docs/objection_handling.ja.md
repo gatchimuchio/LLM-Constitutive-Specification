@@ -1,11 +1,10 @@
-# Objection Handling
+# Objection Handling — v4
 
-| Objection | Answer | Required next step for critic |
-|---|---|---|
-| 「定義依存にすぎない」 | 数学的定理は定義・公理依存で成立する。これは反論ではない。 | 定義域公理を否定するか、有効なLLM反例を提示する。 |
-| 「実行層は経験実証ではない」 | 正しい。これはモデル調査ではなく、有限全列挙による形式証明である。 | 実行失敗を示すか、義務グラフを形式的に攻撃する。 |
-| 「6役割は恣意的」 | 各役割は異なる責任境界に対応する。 | すべての境界を保持するより優れた最小分解、または有効反例を提示する。 |
-| 「未来アーキテクチャが違う」 | アーキテクチャは異なってよい。LLMである限りLayer 0役割は消えない。 | 役割と全機能同値物を欠くLLMを示す。 |
-| 「Largeに固定閾値がない」 | 本定理は普遍的パラメータ閾値に依存しない。Largeは現代的scale conditionである。 | scale曖昧性によりLayer 0役割が消えることを示す。 |
-| 「RAGでも文章回答できる」 | RAGは複合システムであり、retriever/tool層とLLM coreは別である。 | 生成LLM層がLayer 0を欠くことを示す。 |
-| 「encoder-onlyも言語を処理する」 | 言語処理はLLM状態より広い。 | encoder-only系が通常LLMと分類され、かつLayer 0を欠くことを示す。 |
+| Objection | v4 response |
+|---|---|
+| 「非ニューラルだからLLMではない」 | construction methodだけでは棄却しない。Functional Coreを検査する。 |
+| 「5責任=5componentか」 | いいえ。responsibility countとmechanism countを分離する。 |
+| 「学習していない」 | provenanceとして記録する。Functional PASSとは別問題。 |
+| 「単なるretrievalでは」 | exact retrieval vs composition negative controlで区別する。 |
+| 「証拠が足りない」 | `SUSPEND`。推測でPASSにしない。 |
+| 「これが普遍最小か」 | 現行v4は主張しない。exact minimumはOPEN。 |
