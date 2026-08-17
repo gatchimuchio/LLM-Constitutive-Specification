@@ -1,19 +1,15 @@
-# Claim Boundary and Semantics
+# Claim Boundary and Semantics — v4
 
-This repository treats the Layer-0 claim as a mathematical functional-necessity theorem over a stated technical domain: contemporary Large Language Models.
+Current main directly claims **candidate-local functional conformance** only.
 
-The theorem is not an empirical survey of every deployed or future model. That is not a weakness. Mathematical theorems operate over defined domains, axioms, and inference rules. A critic who says “this is definition-dependent” has not refuted the theorem; they have merely identified that the theorem is formal.
+It does not claim a universal or unique minimum.
 
-## Core boundary
-
-| Item | Position |
+| Layer | Status |
 |---|---|
-| Domain | Contemporary Large Language Models in ordinary technical usage |
-| Formal claim | Six Layer-0 roles are necessary, explicitly or via functional equivalents |
-| Executable certificate | Finite obligation graph proven by exhaustive enumeration |
-| External support | Official provider usage and public model-family witnesses |
-| Valid refutation | A system that is an LLM while lacking one Layer-0 role and every functional equivalent |
+| L0-A candidate-local conformance | executable / current |
+| L0-B architecture-family recurrence | evidence-dependent |
+| L0-C cross-family mechanism candidate | open |
+| L0-D scoped provisional principle | open |
+| L0-E transfer candidate | open |
 
-## Non-claims
-
-The theorem does not address consciousness, meaning, agency, human-equivalent reasoning, or the internal implementation details of closed-weight systems.
+`UNIVERSAL_PRINCIPLE` and `FINAL_MINIMUM` are not current status labels.
