@@ -1,9 +1,5 @@
-# Functional Responsibility Granularity — v4
+# 機能責任の粒度
 
-The five v4 items are a **provisional responsibility vocabulary**, not a claim that five physical components are required.
+このパスは既存参照との互換性のため保持する。
 
-```text
-responsibility count != mechanism count
-```
-
-One mechanism may satisfy several responsibilities; several mechanisms may jointly satisfy one responsibility. Merge/split questions are evaluated through functional equivalence and execution evidence. Exact minimum remains OPEN.
+現行正本は **`component_granularity_justification.ja.md`** であり、日本語版を優先する。

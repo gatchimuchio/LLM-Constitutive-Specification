@@ -1,15 +1,5 @@
-# Claim Boundary and Semantics — v4
+# 主張境界と意味
 
-Current main directly claims **candidate-local functional conformance** only.
+このパスは既存参照との互換性のため保持する。
 
-It does not claim a universal or unique minimum.
-
-| Layer | Status |
-|---|---|
-| L0-A candidate-local conformance | executable / current |
-| L0-B architecture-family recurrence | evidence-dependent |
-| L0-C cross-family mechanism candidate | open |
-| L0-D scoped provisional principle | open |
-| L0-E transfer candidate | open |
-
-`UNIVERSAL_PRINCIPLE` and `FINAL_MINIMUM` are not current status labels.
+現行正本は **`claim_boundary_and_semantics.ja.md`** であり、日本語版を優先する。
