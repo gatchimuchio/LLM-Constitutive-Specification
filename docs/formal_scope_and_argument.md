@@ -1,7 +1,5 @@
-# Scope and Argument — v4
+# 適用範囲と論証境界
 
-v4 does not begin by stipulating the class of all systems ordinarily called LLMs. Its direct subject is a **candidate system** with an explicit `system_boundary`.
+このパスは既存参照との互換性のため保持する。
 
-A candidate claiming v4 conformance must expose evidence for the Functional Core, an execution trace, and required negative controls.
-
-This is a candidate-local conformance claim, not a universal theorem over all systems called LLMs.
+現行正本は **`formal_scope_and_argument.ja.md`** であり、日本語版を優先する。
