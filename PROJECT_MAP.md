@@ -1,47 +1,139 @@
 # プロジェクト地図
 
-## 現在の目的
+## この枝の現在目的
 
-実装方式に依存しない Layer-0 機能適合フレームワークを維持し、候補システムの個別適合と、観測済みarchitecture family間での機能責任再現を分離して監査する。
+この枝では、旧称`Layer-0`を正本概念として扱わない。
 
-日本語を現行正本とする。`.md` の英語系互換パスが残る場合も、現行判断は `.ja.md` 正本を優先する。
+目的は、現在LLM等と呼ばれている実在系をHDSで再観測し、**日本語を一次規定言語として、言語模型の成立・規模・同一性・運用境界を原点から再構築すること**である。
 
-## 現行v4中核
+旧`Layer-0`は歴史資料・観測資産・失敗資産・比較資産として保持する。
+
+新規定確定前にMINIDORAおよびHDS Compilerを変更しない。
+
+---
+
+## 規定言語
+
+日本語を一次規定言語とする。
+
+他言語は、外部API、標準規格、プログラム構文、固有名、原文引用、検索再現、国際公開等、実務上やむを得ない接続面に限って使用する。
+
+他言語の一般語義から日本語正本の意味を逆定義しない。
+
+---
+
+## 新しい作業入口
 
 | パス | 役割 |
 |---|---|
-| `README.md` / `README.ja.md` | 現行公開入口。日本語正本 |
-| `layer0_functional_conformance_v4.py` | candidate-local v4適合評価器 |
-| `docs/layer0_v4_spec.ja.md` | 現行正本仕様 |
-| `docs/5モデル横断機能責任突合_2026-08-21.md` | Llama 3 / K2-V2 / OLMo 3 / Apertus 1.5 / Kimi K3 横断証拠 |
-| `docs/claim_layers.ja.md` | 主張層と現在状態 |
-| `docs/claim_boundary_and_semantics.ja.md` | 主張境界 |
-| `docs/component_granularity_justification.ja.md` | 責任粒度と機構数の分離 |
-| `tests/test_layer0_v4.py` | positive / negative conformance tests |
-| `scripts/strict_manifest.py` | tracked inventory / content の厳格検証 |
-| `REPOSITORY_GIT_BLOB_MANIFEST.txt` | 自身を除く正本inventory |
-| `.github/workflows/audit.yml` | CI: `make test-all` |
-| `docs/v3_legacy_status.ja.md` | v3 scope と legacy 分類 |
+| `docs/00_規定言語_日本語基底原則.md` | 日本語を一次規定言語とする上位原則 |
+| `docs/01_言語模型_基底成立規定_正本候補.md` | 新しい基底成立規定の中心草案。名称自体も暫定 |
+| `docs/02_旧規定_位置づけと移行原則.md` | 旧Layer-0を歴史・観測資産へ再配置する移行規定 |
+| `docs/03_横断観測_成立関係抽出.md` | 実在模型横断から新しい成立関係を抽出した根拠 |
+| `docs/04_基底成立規定_破壊監査_第一巡.md` | 新規定候補に残る過剰前提の破壊監査 |
 
-## 現在の主張位置
+この五文書を現時点の新系譜入口とする。
 
-- L0-A: 実行可能
-- L0-B: 観測集合で支持
-- L0-C: 5つの異種モデル系統で支持
-- L0-D: `PRINCIPLE_CANDIDATE / REOPEN_REQUIRED`
-- L0-E: OPEN
+---
 
-L0-Cの支持は、異なる実装機構が**同じ名前の機構へ収束した**ことを意味しない。むしろ、Attention/KDA、Dense/MoE、text-only/multimodal等の差を越えて、上位の機能責任が再現したことを意味する。
+## 現在の中心候補
 
-## Legacy v3 material
+現時点で最も強く残っている関係は、概ね次である。
 
-次は再現性のため保持するが、現行の普遍主張面ではない。
+```text
+対象自然言語側の関係
+        ↕ 対応候補
+文脈付き内部言語状態
+        ↓
+    模型形成関係
+        ↓
+     言語形成差
+```
 
-- `llm_minimal_architecture_groups_v3_0.py`
-- `appendices/layer_a_obligation_graph_enumeration_v0_5/`
-- `artifacts/llm_minimal_architecture_groups_v3_0_*`
-- v3-oriented reference / witness documents
+重要:
 
-## 再構成デモ
+- これは物理部品図ではない。
+- 言語住所対応・表出作用・形成履歴・規模記述・利用外周は別に分別する。
+- `Transformer`、`Attention`、`MoE`、自己回帰、確率分布、学習済みであること等を名称だけで普遍必須にしない。
 
-`layer0_recomposition_memory_demo_bilingual_bundle/` はarchitecture再構成のデモとして保持する。これ単独を普遍的Layer-0最小性の証拠とは扱わない。
+---
+
+## 規模の現在位置
+
+言語模型成立と規模を分ける。
+
+現在は、
+
+- 状態域規模
+- 関係域規模
+- 共有適用規模
+
+を記述する。
+
+`大規模`という通常語に普遍的一点閾値があるとは現在規定しない。
+
+汎用性・領域横断性も大規模性と分ける。
+
+---
+
+## 参照集合
+
+新規定抽出の主参照集合は、少なくとも次を含む。
+
+- Llama 3
+- K2-V2
+- OLMo 3
+- Apertus 1.5
+- Qwen3.6
+- DeepSeek V4
+- Kimi K3
+- LLaDA-8B
+
+これらがLLMと呼ばれていること自体を成立証拠にはしない。
+
+名称から独立して、対象言語関係・模型形成関係・文脈差の到達可能性・言語住所対応・規模・運用閉包を観測する。
+
+---
+
+## 旧規定の現在位置
+
+`main`および旧作業枝に存在するv3/v4等は、正本切替が完了するまで削除しない。
+
+この枝では次として扱う。
+
+- 歴史資料
+- 観測資産
+- 失敗資産
+- 比較資産
+
+旧六構成等の観測は可能な限り保持し、帰属階層を再配置する。
+
+---
+
+## 現在の禁止事項
+
+- `Layer-0`という名称から層構造・部品数を導かない。
+- MINIDORAが通るように新規定を曲げない。
+- HDS Compilerが既に持つIRを新規定の前提にしない。
+- providerがLLMと呼ぶことを成立証拠にしない。
+- 射程外の境界例を通すために主参照集合の共通観測を無言で削らない。
+- 他言語の語彙を先に立て、日本語を翻訳語として従属させない。
+- 正本確定前に旧正本を上書き・削除しない。
+
+---
+
+## 次の作業順序
+
+```text
+実在模型の再観測
+→ 日本語基底の成立規定を破壊監査
+→ 射程内反例を探索
+→ 基底規定を局所安定まで閉じる
+→ 正式名称を最後に決める
+→ 必要な他言語版・機械識別子を二次生成
+→ MINIDORAをゼロから再監査・再構成
+→ 計算用情報構造を確定
+→ HDS Compilerを再設計
+```
+
+現在は**基底規定の破壊監査段階**である。
