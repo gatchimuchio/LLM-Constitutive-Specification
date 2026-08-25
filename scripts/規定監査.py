@@ -28,6 +28,10 @@ from pathlib import Path
     "NOTICE",
 }
 
+正式名称 = "言語模型成立規定"
+現行版 = "2026-08-25-成立規定-1"
+現行状態 = "局所安定正本・再開放可"
+
 
 def 監査() -> list[str]:
     問題: list[str] = []
@@ -48,22 +52,30 @@ def 監査() -> list[str]:
 
     if データ.get("規定言語") != "日本語":
         問題.append("規定言語が日本語ではない")
+    if データ.get("正式名称") != 正式名称:
+        問題.append("正式名称が現行正本と一致しない")
+    if データ.get("版") != 現行版:
+        問題.append("版が現行正本と一致しない")
+    if データ.get("状態") != 現行状態:
+        問題.append("状態が局所安定正本ではない")
 
-    正本候補 = データ.get("正本候補")
-    if not isinstance(正本候補, list) or not 正本候補:
-        問題.append("正本候補一覧が空または不正")
-        正本候補 = []
+    正本 = データ.get("正本")
+    if not isinstance(正本, list) or not 正本:
+        問題.append("正本一覧が空または不正")
+        正本 = []
 
-    for 相対 in 正本候補:
+    for 相対 in 正本:
         対象 = ルート / str(相対)
         if not 対象.exists():
-            問題.append(f"正本候補欠損: {相対}")
+            問題.append(f"正本欠損: {相対}")
             continue
         if 対象.suffix != ".md":
-            問題.append(f"正本候補がMarkdownではない: {相対}")
+            問題.append(f"正本がMarkdownではない: {相対}")
         内容 = 対象.read_text(encoding="utf-8")
         if not 内容.strip():
-            問題.append(f"正本候補が空: {相対}")
+            問題.append(f"正本が空: {相対}")
+        if "（仮称）" in 内容:
+            問題.append(f"正本に仮称表示が残存: {相対}")
 
     規定言語文書 = ルート / "規定" / "00_規定言語.md"
     if 規定言語文書.exists():
@@ -78,6 +90,24 @@ def 監査() -> list[str]:
             if 句 not in 内容:
                 問題.append(f"日本語基底原則の必須句欠損: {句}")
 
+    成立規定 = ルート / "規定" / "02_言語模型成立.md"
+    if 成立規定.exists():
+        内容 = 成立規定.read_text(encoding="utf-8")
+        必須句 = [
+            "成立差",
+            "差分追従",
+            "保存追従",
+            "破壊追従",
+            "複数対照への再利用",
+            "再現性",
+            "生成運用性を分離する",
+        ]
+        for 句 in 必須句:
+            if 句 not in 内容:
+                問題.append(f"言語模型成立規定の必須句欠損: {句}")
+        if "形成差" in 内容:
+            問題.append("言語模型成立規定に旧正本語『形成差』が残存")
+
     ルート直下 = {p.name for p in ルート.iterdir()}
     for 禁止 in sorted(現役禁止名):
         if 禁止 in ルート直下:
@@ -90,12 +120,18 @@ def 監査() -> list[str]:
     readme = ルート / "README.md"
     if readme.exists():
         内容 = readme.read_text(encoding="utf-8")
-        if "日本語正本" not in 内容:
-            問題.append("READMEに日本語正本の宣言がない")
+        if 正式名称 not in 内容:
+            問題.append("READMEに正式名称がない")
+        if 現行版 not in 内容:
+            問題.append("READMEに現行版がない")
+        if "局所安定正本" not in 内容:
+            問題.append("READMEに局所安定正本の宣言がない")
         if "旧称" not in 内容 or "Layer-0" not in 内容:
             問題.append("READMEに旧Layer-0の暫定名称化が明示されていない")
         if "Apache License 2.0" not in 内容:
             問題.append("READMEのライセンス表記がApache License 2.0ではない")
+        if "（仮称）" in 内容 or "再構築中" in 内容:
+            問題.append("READMEに未確定表示が残存")
 
     license_file = ルート / "LICENSE"
     if license_file.exists():
@@ -114,8 +150,16 @@ def 監査() -> list[str]:
     citation = ルート / "CITATION.cff"
     if citation.exists():
         内容 = citation.read_text(encoding="utf-8")
+        if 'title: "言語模型成立規定"' not in 内容:
+            問題.append("CITATION.cffの正式名称が不一致")
+        if f'version: "{現行版}"' not in 内容:
+            問題.append("CITATION.cffの版が不一致")
         if "license: Apache-2.0" not in 内容:
             問題.append("CITATION.cffのライセンスがApache-2.0ではない")
+
+    最終閉包 = ルート / "観測" / "2026-08-25_最終閉包監査.md"
+    if not 最終閉包.exists():
+        問題.append("最終閉包監査が存在しない")
 
     if (ルート / "README.ja.md").exists():
         問題.append("README.ja.mdを作らない。README.md自体を日本語正本入口とする")
