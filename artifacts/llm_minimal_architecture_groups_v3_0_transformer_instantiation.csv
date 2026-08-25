@@ -1,9 +1,0 @@
-﻿component_group,role
-TOKENIZER_OR_TOKEN_SPACE,Empirical implementation of TOKEN_OR_SYMBOL_SPACE.
-TOKEN_EMBEDDING,Maps token ids to internal vectors.
-ORDER_BASIS_OR_ORDER_ACCESS,"Encodes or preserves sequence order; includes explicit positional encodings such as RoPE/absolute/ALiBi, implicit causal order access, recurrent state order, or equivalent."
-SEQUENCE_MIXER,"Attention, SSM, recurrence, convolutional mixing, or equivalent context interaction mechanism."
-NONLINEAR_TRANSFORM,MLP/FFN/SwiGLU/GeLU-class transform or equivalent nonlinear feature transform.
-RESIDUAL_STABILITY,Residual stream plus normalization/stability mechanism where applicable.
-OUTPUT_PROJECTION_OR_LM_HEAD,Projects hidden state to token logits or equivalent emission scores.
-AUTOREGRESSIVE_OR_GENERATIVE_SEQUENCE_FITTING,"Training/fitting criterion for sequence continuation, denoising, infilling, or equivalent text generation."

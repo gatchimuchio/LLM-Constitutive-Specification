@@ -1,106 +1,86 @@
-# Layer-0 機能適合フレームワーク
+# 言語模型 基底規定（仮称）
 
-> **現行仕様:** `v4.0-provisional`  
-> **日本語正本:** `docs/layer0_v4_spec.ja.md`  
-> **横断証拠状態:** `L0-C / OBSERVED_SET_SUPPORTED`  
-> **原理状態:** `PRINCIPLE_CANDIDATE / REOPEN_REQUIRED`
+> **状態:** 再構築中 / 日本語正本候補 / 再開放可  
+> **旧称:** Layer-0（歴史上の暫定名称。現行構造名ではない）
 
-このリポジトリは、LLM候補を特定の実装方式へ固定せず、**言語要求を文脈依存に処理し、追跡可能な変換または合成を通じて結果を形成できるか**を監査するための Layer-0 上位契約を提供する。
+このリポジトリは、現在「大規模言語モデル（LLM）」等と呼ばれている実在系を横断観測し、**言語模型とは何か、何が成立すれば言語模型と扱えるか、規模・実行・形成・外周をどこで分けるか**を、日本語を一次規定言語として原点から再構築するための正本候補です。
 
-v4では、v3の「6コンポーネントが現代LLMの普遍的一意最小構成である」という公開主張を現行仕様から撤回した。v3成果物は削除せず履歴として保存する。v4は普遍定理・最終最小構成を主張しない。
+## 規定言語
 
-2026-08-21の横断突合では、Llama 3、LLM360 K2-V2、OLMo 3、Apertus 1.5、Kimi K3 の公開観測をHDS日本語構文で再監査した。標準Attention、KDA、Dense FFN、MoE、text-only、multimodal、複数の長文脈方式という実装差を跨いでも、現行5責任への写像が崩れなかった。この結果により、**観測した5系統に限定して L0-C「異種architecture family間の機能責任再現」を支持**する。
+日本語を、表示言語ではなく**定義・分別・判断・改訂の一次規定言語**とします。
 
-これは「Attentionが不要」「5責任が普遍的一意最小」「全LLMに証明済み」という意味ではない。
+他言語は、外部API、標準規格、プログラム構文、固有名、原文引用、検索再現、国際公開など、実務上やむを得ない接続面だけで使用します。他言語の一般語義から日本語正本の意味を逆定義しません。
 
-## v4 Functional Core
+## 現在の中核候補
 
-機械識別子は互換性のため英語を維持するが、正本上の意味は次の日本語で固定する。
+現時点で最も強く残っている成立関係は次です。
 
-1. `LINGUISTIC_ADDRESSABILITY` — **言語アドレス化**
-2. `CONTEXT_BOUND_STATE` — **文脈束縛状態**
-3. `TRANSFORMATION_OR_COMPOSITION_CORE` — **変換・合成中核**
-4. `CONTEXT_DEPENDENT_RESULT_FORMATION` — **文脈依存結果形成**
-5. `RESULT_SURFACE` — **結果表面**
+> **候補模型から独立して定めた対象自然言語関係に対し、文脈付き言語状態の差に応じて、未提示・未確定の言語状態へ形成差を生じさせる模型関係が局所的に対応すること。**
 
-重要な規則：
+この関係を、物理部品数・特定の学習方式・特定のニューラル構造へ固定しません。
+
+現時点で普遍必須へ置かないものには、Transformer、Attention、MoE、自己回帰、左から右の生成、次token予測、確率分布、softmax、sampling、KV cache、特定tokenizer、学習済みであること等があります。
+
+## 規模は別に記述する
+
+「言語模型として何の関係が成立しているか」と「その関係がどれほど大きな範囲へ成立するか」を分けます。
+
+規模は少なくとも、
+
+- 状態域規模
+- 関係域規模
+- 共有適用規模
+
+の三観測面で記述します。規模と汎用性を同一視せず、普遍的一点閾値も現時点では置きません。
+
+## リポジトリ構成
 
 ```text
-責任数 != 機構数
+規定/
+  00_規定言語.md
+  01_基底語彙.md
+  02_言語模型成立.md
+  03_規模記述.md
+  04_運用境界.md
+  05_観測と判定.md
+  06_再開放.md
+  正本索引.json
+
+観測/
+  2026-08-25_横断観測.md
+  2026-08-25_破壊監査.md
+
+scripts/
+  規定監査.py
+
+tests/
+  test_規定構造.py
+
+旧規定/
+  README.md
 ```
 
-一つの機構が複数責任を担ってよく、複数機構が一つの責任を共同で担ってよい。
+`規定/` が現行の意味正本候補です。`観測/` は正本候補を支える観測と反例監査です。`旧規定/` は旧Layer-0系列への履歴参照だけを保持します。
 
-今回の横断観測で見えた「履歴保持・参照関係形成・状態変換・統合帰還・候補表出・選択・反復」は、現時点では5責任の下位作用として吸収できる。したがって、それらを機械的に独立責任へ増やさない。
+## 参照集合と成立証拠を分ける
 
-## 三層分離
+Llama 3、K2-V2、OLMo 3、Apertus 1.5、Qwen3.6、DeepSeek V4、Kimi K3、LLaDA-8B等を横断観測の参照集合に置きます。
 
-### A. Functional Core
-実行時に観測する責任。合否対象。
+ただし、提供者や業界がLLMと呼んでいること自体を成立証拠にはしません。各候補へ、名称から独立して本規定を適用します。
 
-### B. Construction / Provenance Profile
-`trained / authored / compiled / induced / searched / evolved / retrieved / hybrid / unknown`
+MINIDORAおよび現行HDS Compilerは旧規定から派生した下流物であるため、**新規定の成立証人には使用しません**。新規定が局所的に閉じた後、これらをゼロから再監査します。
 
-作られ方は記録するが、Functional Core のPASS条件そのものにはしない。
+## 正本化しないもの
 
-### C. Operational Wrapper
-`token_emission / text_api / score_surface / structured_output / interactive_chat / batch_transform / embedded_subsystem / unknown`
+現段階では正式名称も未確定です。「言語模型 基底規定」も仮称です。旧称 `Layer-0` を継承することを目的にしません。
 
-model core と deployed system を分離する。
+本規定は対象世界の絶対法則を宣言するものでもありません。対象範囲・版・観測条件を明示し、未観測・未確定・矛盾・再開放を保持します。
 
-## 実装方式を定義で固定しない
-
-v4は neural network、decision tree / forest、probabilistic program、symbolic rules、finite-state / pushdown / graph machine、table-driven transducer、retrieval + composition、search / planning、program synthesis、hybrid を定義だけで排除しない。
-
-同様に、Transformer、標準full-attention、Dense FFN、MoE、KDA、GQA、KV cache、RoPE、YaRN、multimodal、tool use、thinking controlのいずれかを、名称だけでLayer-0の必須構成へ昇格しない。
-
-採否は素材名ではなく、機能責任・system boundary・execution trace・negative controls で決める。
-
-## 適合状態
-
-- `PASS` — 全必須責任が実行証拠で確認された
-- `FAIL` — 必須責任またはnegative controlが反証された
-- `SUSPEND` — boundary / source / trace / evidence が不足
-- `NOT_APPLICABLE` — scope外
-
-## 横断主張の現在地
-
-| 層 | 内容 | 現在状態 |
-|---|---|---|
-| L0-A | 個別候補の機能適合 | 実行可能 |
-| L0-B | 同一・近縁family内での責任再現 | 観測集合で支持 |
-| L0-C | 異種architecture family間での責任再現 | **観測5系統で支持** |
-| L0-D | 限定scopeでの原理候補 | `PRINCIPLE_CANDIDATE / REOPEN_REQUIRED` |
-| L0-E | 未観測familyへの転移 | OPEN |
-
-詳細：`docs/5モデル横断機能責任突合_2026-08-21.md`
-
-## 実行
+## 監査
 
 ```bash
-make audit
-make test
-make verify
-make test-all
+python scripts/規定監査.py
+python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-`make test-all` は正本manifestを書き換えない。
-
-正本manifest更新は明示操作のみ：
-
-```bash
-make update-golden CONFIRM=1
-```
-
-## 主要ファイル
-
-- `docs/layer0_v4_spec.ja.md` — v4正本仕様（日本語）
-- `docs/5モデル横断機能責任突合_2026-08-21.md` — 今回の横断証拠と主張境界
-- `layer0_functional_conformance_v4.py` — candidate-local v4適合評価器
-- `tests/test_layer0_v4.py` — positive / negative conformance tests
-- `scripts/strict_manifest.py` — tracked inventory / content の厳格検証
-- `docs/v3_legacy_status.ja.md` — v3の現行位置づけ
-
-## v3について
-
-v3の6役割、64部分集合列挙、生成artifact、DOI-backed releaseは履歴として保持する。ただし、現在のmainはそれらを**現代LLM全体への普遍的一意最小性の証明**として扱わない。
+監査は、正本導線、日本語一次規定、旧Layer-0現役化の禁止、正本索引整合、旧資産の現行木混入等を確認します。

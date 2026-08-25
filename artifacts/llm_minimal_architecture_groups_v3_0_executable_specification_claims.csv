@@ -1,5 +1,0 @@
-﻿id,claim,verification,status
-A1,Removing any single Layer 0 element triggers a specified failure mode inside the formal specification.,make test-all / main audit plus ablation appendix,PASS
-A2,The six-element Layer 0 set is internally minimal under the repository's stated failure criteria.,all proper subsets fail at least one observable criterion in the deterministic ablation harness,PASS
-A3,Restoring the complete Layer 0 module set restores the specified operational output-function behavior in the harness.,full-set subset passes all probes; non-full subsets do not,PASS
-A4,components.csv and removal_tests.csv are independent artifacts with different source tables and different SHA256 hashes.,manifest/diff check,PASS

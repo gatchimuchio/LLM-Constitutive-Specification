@@ -1,5 +1,0 @@
-﻿role,rule,interpretation
-frontier_witness,F1 AND F2,Primary branch witness within this audit. F3 may strengthen the role but is not required if F1 and F2 are both satisfied.
-frontier_near_witness,F2 AND F3 AND NOT F1,"Capacity-qualified and officially referenced, but not treated as the main current flagship/frontier witness."
-current_generation_dense_control,F3 AND NOT F2,"Useful same-generation or architectural control, not a frontier witness under this operational threshold."
-non_frontier_architecture_agnostic_witness,Layer0_support AND non_transformer AND not evaluated under frontier criteria,"Used only to test Layer 0 architecture-agnostic coverage, not frontier status."

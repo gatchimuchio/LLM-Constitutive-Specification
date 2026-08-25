@@ -1,4 +1,0 @@
-﻿criterion,description,use
-F1_flagship_release,"Maintainer presents the model as a current flagship, most capable, or frontier-class open/open-weight release.",Primary witness signal; not a calibrated global ranking.
-F2_scale_threshold,"Dense model with roughly >=70B parameters, or MoE model with >=200B total and >=20B activated parameters.",Operational capacity threshold for this audit; not a universal law.
-F3_reference_status,"Appears as a direct comparator, baseline, or current-generation row in official technical reports/model cards.",Frontier-near or control role depending on capacity and release context.

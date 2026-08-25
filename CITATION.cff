@@ -1,13 +1,13 @@
 cff-version: "1.2.0"
-title: "Layer-0 Functional Conformance Framework"
-message: "Please cite the tagged version used. Software is MIT-licensed; documentation and research artifacts are CC BY 4.0 as described in LICENSE."
+title: "言語模型 基底規定（仮称）"
+message: "利用した版を明示して引用してください。日本語正本が一次規定であり、他言語は外部接続上必要な場合の二次表現です。"
 type: software
 authors:
   - family-names: "Ohira"
     given-names: "Teppei"
-version: "v4.0-provisional"
-date-released: "2026-08-17"
+version: "2026-08-25-基底再構築-1"
+date-released: "2026-08-25"
 repository-code: "https://github.com/gatchimuchio/LLM-Layer-0-Functional-Compliance-Specification"
 abstract: >
-  An implementation-neutral candidate-local functional conformance framework for Layer-0 language-system responsibilities. The v3 six-role theorem package is retained as legacy reproducibility material and is not the current universal/unique-minimum claim surface.
+  実在する異種の大規模言語モデル群を横断観測し、言語模型成立、規模、運用、形成、外周の境界を日本語を一次規定言語として再構築するための規定体系。旧称Layer-0は歴史上の暫定名称として扱う。
 license: MIT

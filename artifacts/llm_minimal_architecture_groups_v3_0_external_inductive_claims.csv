@@ -1,3 +1,0 @@
-﻿id,claim,support,falsification_condition,status
-B1,"Known contemporary Transformer, MoE Transformer, SSM/Mamba, and recurrent/RWKV language-model families can be mapped into the Layer 0 functional minimum.",public architecture witnesses and element-wise mapping tables,a valid LLM that lacks one of the Layer 0 elements under the stated definitions,SUPPORTED_BY_PUBLIC_WITNESSES
-B2,"Transformer attention, MoE, RoPE, RMSNorm, and SwiGLU are implementation/frontier branches rather than universal Layer 0 requirements.",non-Transformer Layer 0 witnesses and Dense/MoE branch separation,evidence that Large Language Model status mathematically requires one of those implementation-specific mechanisms,SUPPORTED_BY_PUBLIC_WITNESSES
