@@ -16,6 +16,8 @@ from pathlib import Path
     "appendices",
     "artifacts",
     "layer0_recomposition_memory_demo_bilingual_bundle",
+    "LICENSE-MIT",
+    "LICENSE-CC-BY-4.0",
 }
 
 必須ルート = {
@@ -23,8 +25,7 @@ from pathlib import Path
     "PROJECT_MAP.md",
     "CITATION.cff",
     "LICENSE",
-    "LICENSE-MIT",
-    "LICENSE-CC-BY-4.0",
+    "NOTICE",
 }
 
 
@@ -80,7 +81,7 @@ def 監査() -> list[str]:
     ルート直下 = {p.name for p in ルート.iterdir()}
     for 禁止 in sorted(現役禁止名):
         if 禁止 in ルート直下:
-            問題.append(f"旧規定資産が現役ルートに残存: {禁止}")
+            問題.append(f"旧規定資産または旧ライセンスが現役ルートに残存: {禁止}")
 
     旧規定 = ルート / "旧規定" / "README.md"
     if not 旧規定.exists():
@@ -93,6 +94,28 @@ def 監査() -> list[str]:
             問題.append("READMEに日本語正本の宣言がない")
         if "旧称" not in 内容 or "Layer-0" not in 内容:
             問題.append("READMEに旧Layer-0の暫定名称化が明示されていない")
+        if "Apache License 2.0" not in 内容:
+            問題.append("READMEのライセンス表記がApache License 2.0ではない")
+
+    license_file = ルート / "LICENSE"
+    if license_file.exists():
+        内容 = license_file.read_text(encoding="utf-8")
+        if "Apache License" not in 内容 or "Version 2.0" not in 内容:
+            問題.append("LICENSEがApache License 2.0ではない")
+
+    notice = ルート / "NOTICE"
+    if notice.exists():
+        内容 = notice.read_text(encoding="utf-8")
+        if "Apache License 2.0" not in 内容:
+            問題.append("NOTICEのライセンス表記がApache License 2.0ではない")
+        if "Copyright 2026 がっちむち♂" not in 内容:
+            問題.append("NOTICEに著作権表示がない")
+
+    citation = ルート / "CITATION.cff"
+    if citation.exists():
+        内容 = citation.read_text(encoding="utf-8")
+        if "license: Apache-2.0" not in 内容:
+            問題.append("CITATION.cffのライセンスがApache-2.0ではない")
 
     if (ルート / "README.ja.md").exists():
         問題.append("README.ja.mdを作らない。README.md自体を日本語正本入口とする")
