@@ -1,6 +1,6 @@
 cff-version: "1.2.0"
 title: "大規模言語模型成立規定"
-message: "利用した版を明示して引用してください。日本語正本が一次規定であり、他言語は外部接続上必要な場合の二次表現です。"
+message: "利用した版を明示して引用してください。日本語正本が一次規定であり、他言語は外部接続上必要な場合の二次表現です。規定・観測・文書はCC BY 4.0、監査実装・テスト・CIはApache-2.0です。"
 type: software
 authors:
   - family-names: "Ohira"
@@ -10,4 +10,4 @@ date-released: "2026-08-26"
 repository-code: "https://github.com/gatchimuchio/LLM-Constitutive-Specification"
 abstract: >
   実在する異種の大規模言語模型群を横断観測し、対象言語体系、対象言語関係、模型側関係、局所対応、規模、生成運用、形成履歴、利用外周の境界を日本語を一次規定言語として定める規定体系。MINIDORA内のHDS横断観測資料および外部一次資料による修正後ダブルチェックを反映する。
-license: Apache-2.0
+license: CC-BY-4.0

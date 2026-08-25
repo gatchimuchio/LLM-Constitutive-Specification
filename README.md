@@ -126,4 +126,11 @@ python -m unittest discover -s tests -p 'test_*.py'
 
 ## ライセンス
 
-本リポジトリの独自実装および独自文書は、MINIDORAと同じ **Apache License 2.0** の下で提供します。詳細は `LICENSE` と `NOTICE` を参照してください。
+本リポジトリは成果物種別でライセンスを分離します。
+
+- **`規定/`、`観測/`、`旧規定/`、README、PROJECT_MAPその他の仕様・設計・理論・解説・図表・文書**: Creative Commons Attribution 4.0 International (`CC-BY-4.0`)
+- **`scripts/`、`tests/`、`.github/`その他のソフトウェア・監査実装・CI構成物**: Apache License 2.0 (`Apache-2.0`)
+
+これはリポジトリ全体をどちらか任意で選べるデュアルライセンスではありません。成果物の種類ごとに適用ライセンスを分けます。
+
+適用範囲は `LICENSE`、正式条件は `LICENSE-APACHE-2.0` / `LICENSE-CC-BY-4.0`、帰属・第三者由来物は `NOTICE` を参照してください。

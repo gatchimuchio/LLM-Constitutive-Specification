@@ -17,7 +17,6 @@ from pathlib import Path
     "artifacts",
     "layer0_recomposition_memory_demo_bilingual_bundle",
     "LICENSE-MIT",
-    "LICENSE-CC-BY-4.0",
 }
 
 必須ルート = {
@@ -25,6 +24,8 @@ from pathlib import Path
     "PROJECT_MAP.md",
     "CITATION.cff",
     "LICENSE",
+    "LICENSE-APACHE-2.0",
+    "LICENSE-CC-BY-4.0",
     "NOTICE",
 }
 
@@ -152,20 +153,35 @@ def 監査() -> list[str]:
             問題.append("READMEに自然言語限定解除が反映されていない")
         if "保存追従・破壊追従" not in 内容 or "補助証拠" not in 内容:
             問題.append("READMEに監査条件修正が反映されていない")
-        if "Apache License 2.0" not in 内容:
-            問題.append("READMEのライセンス表記がApache License 2.0ではない")
+        for 句 in ["CC-BY-4.0", "Apache License 2.0", "LICENSE-APACHE-2.0", "LICENSE-CC-BY-4.0"]:
+            if 句 not in 内容:
+                問題.append(f"READMEのライセンス分離表記が欠損: {句}")
 
-    license_file = ルート / "LICENSE"
-    if license_file.exists():
-        内容 = license_file.read_text(encoding="utf-8")
+    license_scope = ルート / "LICENSE"
+    if license_scope.exists():
+        内容 = license_scope.read_text(encoding="utf-8")
+        for 句 in ["成果物の種類ごと", "Apache-2.0", "CC-BY-4.0", "デュアルライセンスではありません"]:
+            if 句 not in 内容:
+                問題.append(f"LICENSEの適用範囲表記が欠損: {句}")
+
+    apache_file = ルート / "LICENSE-APACHE-2.0"
+    if apache_file.exists():
+        内容 = apache_file.read_text(encoding="utf-8")
         if "Apache License" not in 内容 or "Version 2.0" not in 内容:
-            問題.append("LICENSEがApache License 2.0ではない")
+            問題.append("LICENSE-APACHE-2.0がApache License 2.0ではない")
+
+    cc_file = ルート / "LICENSE-CC-BY-4.0"
+    if cc_file.exists():
+        内容 = cc_file.read_text(encoding="utf-8")
+        if "CC-BY-4.0" not in 内容 or "creativecommons.org/licenses/by/4.0/legalcode" not in 内容:
+            問題.append("LICENSE-CC-BY-4.0がCC BY 4.0正式条件を参照していない")
 
     notice = ルート / "NOTICE"
     if notice.exists():
         内容 = notice.read_text(encoding="utf-8")
-        if "Apache License 2.0" not in 内容:
-            問題.append("NOTICEのライセンス表記がApache License 2.0ではない")
+        for 句 in ["Apache License 2.0", "Creative Commons Attribution 4.0 International", "デュアルライセンスではありません"]:
+            if 句 not in 内容:
+                問題.append(f"NOTICEのライセンス分離表記が欠損: {句}")
 
     citation = ルート / "CITATION.cff"
     if citation.exists():
@@ -174,8 +190,8 @@ def 監査() -> list[str]:
             問題.append("CITATION.cffの正式名称が不一致")
         if f'version: "{現行版}"' not in 内容:
             問題.append("CITATION.cffの版が不一致")
-        if "license: Apache-2.0" not in 内容:
-            問題.append("CITATION.cffのライセンスがApache-2.0ではない")
+        if "license: CC-BY-4.0" not in 内容:
+            問題.append("CITATION.cffの規定文書ライセンスがCC-BY-4.0ではない")
 
     最終確認 = ルート / 最終確認パス
     if not 最終確認.exists():

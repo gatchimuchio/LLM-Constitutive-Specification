@@ -107,4 +107,5 @@ MINIDORAおよびHDS Compilerを本規定に合わせて成立させる証人に
 - 版: `2026-08-26-成立規定-2`
 - 状態: `局所安定正本 / 再開放可`
 - 規定言語: 日本語
-- ライセンス: Apache License 2.0
+- 文書・規定・観測: Creative Commons Attribution 4.0 International (`CC-BY-4.0`)
+- 監査スクリプト・テスト・CI: Apache License 2.0 (`Apache-2.0`)
