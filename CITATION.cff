@@ -10,4 +10,4 @@ date-released: "2026-08-25"
 repository-code: "https://github.com/gatchimuchio/LLM-Layer-0-Functional-Compliance-Specification"
 abstract: >
   実在する異種の大規模言語モデル群を横断観測し、言語模型成立、規模、運用、形成、外周の境界を日本語を一次規定言語として再構築するための規定体系。旧称Layer-0は歴史上の暫定名称として扱う。
-license: MIT
+license: Apache-2.0
