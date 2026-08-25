@@ -1,13 +1,13 @@
 cff-version: "1.2.0"
-title: "言語模型 基底規定（仮称）"
+title: "言語模型成立規定"
 message: "利用した版を明示して引用してください。日本語正本が一次規定であり、他言語は外部接続上必要な場合の二次表現です。"
 type: software
 authors:
   - family-names: "Ohira"
     given-names: "Teppei"
-version: "2026-08-25-基底再構築-1"
+version: "2026-08-25-成立規定-1"
 date-released: "2026-08-25"
 repository-code: "https://github.com/gatchimuchio/LLM-Layer-0-Functional-Compliance-Specification"
 abstract: >
-  実在する異種の大規模言語モデル群を横断観測し、言語模型成立、規模、運用、形成、外周の境界を日本語を一次規定言語として再構築するための規定体系。旧称Layer-0は歴史上の暫定名称として扱う。
+  実在する異種の大規模言語モデル群を横断観測し、対象言語関係、模型側関係、局所対応、規模、生成運用、形成履歴、利用外周の境界を日本語を一次規定言語として定める規定体系。旧称Layer-0は歴史上の暫定名称として扱う。
 license: Apache-2.0
