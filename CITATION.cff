@@ -5,9 +5,9 @@ type: software
 authors:
   - family-names: "Ohira"
     given-names: "Teppei"
-version: "2026-08-26-成立規定-2"
-date-released: "2026-08-26"
+version: "2026-08-27-成立規定-3"
+date-released: "2026-08-27"
 repository-code: "https://github.com/gatchimuchio/LLM-Constitutive-Specification"
 abstract: >
-  実在する異種の大規模言語模型群を横断観測し、対象言語体系、対象言語関係、模型側関係、局所対応、規模、生成運用、形成履歴、利用外周の境界を日本語を一次規定言語として定める規定体系。MINIDORA内のHDS横断観測資料および外部一次資料による修正後ダブルチェックを反映する。
+  実在する異種の大規模言語模型群を横断観測し、言語模型性の最小成立条件と、内部能力成立作用を別模型へ忠実に再構成する構成再現条件を分離して規定する。状態分離・保持・更新、意味・関係同一性、未確定差共存、寄与調整、再作用・再結合、終端閉包、形成済み関係の境界をv3で明示した。
 license: CC-BY-4.0

@@ -1,0 +1,4 @@
+RELATION_MACHINE_AUDIT=PASS
+MINIMAL_CONDITIONS=['独立対象', '文脈依存関係', '関係再利用', '言語対応', '局所対応']
+RECOMPOSITION_CONDITIONS=['状態分離・保持・更新', '意味・関係同一性追跡', '未確定差の共存', '寄与調整と確定分離', '構成連鎖 / 再作用・再結合', '再作用閉包 / 終端成立差', '形成済み関係の保持 / 作用機構との分離']
+SOURCE_MAPPING_COUNT=13

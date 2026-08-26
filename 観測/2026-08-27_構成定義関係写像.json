@@ -1,0 +1,35 @@
+{
+  "source_basis": [
+    "K3 D4 能力成立作用構文化 v1",
+    "K3を除く10モデル 能力成立作用構文化 v1",
+    "LLM能力保存作用則 v1"
+  ],
+  "mapping": {
+    "状態分離": "状態分離・保持・更新",
+    "意味同一性": "意味・関係同一性追跡",
+    "寄与Gate": "寄与調整と確定分離",
+    "状態Checkpoint": "再参照または段階輸送（成立形）",
+    "再選択": "寄与調整 + 再参照/段階輸送",
+    "再結合": "構成連鎖 / 再作用・再結合",
+    "有界反復": "再作用閉包 / 終端成立差",
+    "形成分離": "形成済み関係の保持 / 作用機構との分離",
+    "終端遅延": "寄与調整と確定分離 + 再作用閉包",
+    "局所/大域再接続": "作用範囲（観測軸）",
+    "深さ輸送": "段階輸送（成立形）",
+    "共通/専門作用": "作用分岐・合流（観測軸）",
+    "未確定差の共存": "未確定差の共存"
+  },
+  "intentionally_not_universal": [
+    "Attention",
+    "Transformer",
+    "MoE",
+    "KDA",
+    "MLA",
+    "fixed 3:1 schedule",
+    "MTP",
+    "speculative decoding",
+    "explicit checkpoint selection",
+    "specific training method"
+  ],
+  "status": "COVERED"
+}
