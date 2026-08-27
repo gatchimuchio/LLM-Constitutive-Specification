@@ -5,9 +5,9 @@ type: software
 authors:
   - family-names: "Ohira"
     given-names: "Teppei"
-version: "2026-08-28-成立規定-5"
+version: "2026-08-28-成立規定-6"
 date-released: "2026-08-28"
 repository-code: "https://github.com/gatchimuchio/LLM-Constitutive-Specification"
 abstract: >
-  実在する異種言語模型を横断し、模型内在の言語模型性成立条件と識別監査条件を分離する。v5では旧五条件・旧構成再現七条件・固定規模三面を再開放し、言語状態域、条件付き言語差形成、構成再利用、言語状態接続の四条件へ再編した。機能再現と元模型相対の構成再現を分け、形成済み模型状態、模型境界、規模プロファイルを再定義する。
+  Large Language Model / LLMについて、言語模型機能を条件付き言語重み関係として再規定し、n-gram・compiler・BERT/MLMを独立対照として模型境界を監査する。模型物・実行系・利用系、能力・規模・現代LLM呼称、機能・能力・構造・因果機構の再現を分離する。
 license: CC-BY-4.0

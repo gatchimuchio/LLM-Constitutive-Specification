@@ -1,77 +1,44 @@
 from __future__ import annotations
-
-import importlib.util
-import json
-import unittest
+import importlib.util, json, unittest
 from pathlib import Path
-
 
 class 規定構造試験(unittest.TestCase):
     @classmethod
-    def setUpClass(cls) -> None:
-        cls.root = Path(__file__).resolve().parents[1]
-        spec = importlib.util.spec_from_file_location("規定監査", cls.root / "scripts" / "規定監査.py")
+    def setUpClass(cls):
+        cls.root=Path(__file__).resolve().parents[1]
+        spec=importlib.util.spec_from_file_location("規定監査",cls.root/"scripts/規定監査.py")
         assert spec and spec.loader
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        cls.audit = module
+        mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); cls.mod=mod
+    def index(self): return json.loads((self.root/"規定/正本索引.json").read_text(encoding="utf-8"))
+    def read(self,p): return (self.root/p).read_text(encoding="utf-8")
+    def test_監査_pass(self): self.assertEqual(self.mod.audit(),[])
+    def test_v6(self): self.assertEqual(self.index()["版"],"2026-08-28-成立規定-6")
+    def test_中核(self): self.assertEqual(self.index()["言語模型機能中核"],["言語状態空間","条件付き言語重み関係","持続模型関係","完全言語状態への接続"])
+    def test_v5四条件を保存しない(self):
+        t=self.read("規定/02_大規模言語模型成立.md")
+        self.assertNotIn("現行版では、模型内在条件を次の四条件へ整理する",t)
+    def test_ngram_positive(self): self.assertIn("### n-gram",self.read("規定/05_観測と判定.md"))
+    def test_compiler_posthoc_negative(self):
+        t=self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("後付けで「その出力へ重み1、他へ0」",t)
+        self.assertIn("compiler / deterministic transducer",t)
+    def test_BERT_MLM境界(self):
+        t=self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("BERT encoder artifact",t); self.assertIn("MLM pre-training system",t)
+        self.assertIn("局所言語模型作用",t)
+    def test_模型境界三層(self): self.assertEqual(self.index()["境界層"],["言語模型物","言語模型実行系","利用系"])
+    def test_因果必要不変量分離(self):
+        c=self.index()["構成語"]; self.assertFalse(c["同一語扱い"])
+        self.assertEqual(set(c.keys()),{"因果寄与","必要性","不変","同一語扱い"})
+    def test_再現四分(self): self.assertEqual(self.index()["再現種別"],["機能再現","能力再現","構造再現","因果機構再現"])
+    def test_能力分離(self): self.assertIn("言語模型機能成立\n!=\n高推論能力",self.read("規定/02_大規模言語模型成立.md"))
+    def test_LLM呼称分離(self):
+        t=self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("LLM機能等価",t); self.assertIn("現代LLM呼称適合",t)
+    def test_scale_antigaming(self):
+        s=self.index()["大規模性"]; self.assertTrue(s["比較集合事後選択禁止"]); self.assertTrue(s["模型物中心"])
+    def test_監査記録(self):
+        self.assertTrue((self.root/"観測/2026-08-28_構成定義v6独立再監査.md").exists())
+        self.assertTrue((self.root/"観測/2026-08-28_構成定義v6機械監査.txt").exists())
 
-    def index(self):
-        return json.loads((self.root / "規定" / "正本索引.json").read_text(encoding="utf-8"))
-
-    def test_監査(self):
-        self.assertEqual(self.audit.監査(), [])
-
-    def test_v5_version(self):
-        data = self.index()
-        self.assertEqual(data["版"], "2026-08-28-成立規定-5")
-
-    def test_旧五条件を維持しない(self):
-        self.assertEqual(self.index()["言語模型性成立条件"], ["言語状態域", "条件付き言語差形成", "構成再利用", "言語状態接続"])
-        self.assertNotIn("独立対象", self.index()["言語模型性成立条件"])
-        self.assertNotIn("局所対応", self.index()["言語模型性成立条件"])
-
-    def test_監査条件を模型条件から分離(self):
-        self.assertEqual(self.index()["識別監査条件"], ["独立対象固定", "言語対応", "差分追従", "複数対照への再利用", "未列挙構成監査", "再現性"])
-
-    def test_旧七条件を普遍化しない(self):
-        self.assertFalse(self.index()["構成再現"]["普遍固定条件"])
-        self.assertTrue(self.index()["構成再現"]["元模型相対"])
-
-    def test_機能再現と構成再現を分離(self):
-        self.assertEqual(self.index()["再現区分"], ["機能再現", "構成再現"])
-
-    def test_形成済み模型状態が上位(self):
-        self.assertEqual(self.index()["形成物"]["上位概念"], "形成済み模型状態")
-
-    def test_retrievalを一律外周化しない(self):
-        self.assertTrue(self.index()["模型境界"]["retrievalを一律外周化しない"])
-
-    def test_規模三面を固定しない(self):
-        self.assertFalse(self.index()["規模"]["固定面"])
-        self.assertEqual(self.index()["規模"]["方式"], "規模プロファイル")
-
-    def test_構成不変量に因果証拠を要求(self):
-        text = (self.root / "規定" / "02_大規模言語模型成立.md").read_text(encoding="utf-8")
-        self.assertIn("構成不変量の採用条件", text)
-        self.assertIn("除去・無効化", text)
-        self.assertIn("介入した状態差", text)
-
-    def test_anti_lookup(self):
-        text = (self.root / "規定" / "05_観測と判定.md").read_text(encoding="utf-8")
-        self.assertIn("anti-lookup監査", text)
-        self.assertIn("未列挙", text)
-
-    def test_横断アーキテクチャを保持(self):
-        text = (self.root / "規定" / "05_観測と判定.md").read_text(encoding="utf-8")
-        for name in ["Llama", "BERT", "T5", "RWKV", "LLaDA", "REALM", "RETRO"]:
-            self.assertIn(name, text)
-
-    def test_条件数を保守しない(self):
-        text = (self.root / "規定" / "06_再開放.md").read_text(encoding="utf-8")
-        self.assertIn("条件数を保守しない", text)
-        self.assertIn("五条件・七条件・三面", text)
-
-
-if __name__ == "__main__":
-    unittest.main()
+if __name__=="__main__": unittest.main()
