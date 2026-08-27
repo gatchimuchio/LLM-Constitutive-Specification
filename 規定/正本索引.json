@@ -69,10 +69,12 @@
     "可変長終端を監査": true,
     "posthoc deltaは分類証拠にならない": true,
     "BERT_encoderとMLMを分ける": true,
-    "因果文書を因果証拠にしない": true,
     "因果寄与と必要性を分ける": true,
     "構造再現と因果機構再現を分ける": true,
-    "MINIDORAを成立証人にしない": true
+    "MINIDORAを成立証人にしない": true,
+    "design/source記載だけでは因果効果を確定しない": true,
+    "executable semanticsは機構的因果根拠になり得る": true,
+    "退化分布そのものは禁止しない": true
   },
   "観測資料追加": [
     "観測/2026-08-28_構成定義v7独立再監査.md",

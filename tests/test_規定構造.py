@@ -55,4 +55,14 @@ class 規定構造試験(unittest.TestCase):
         self.assertIn("実行意味から依存関係を形式的に導ける",t)
         self.assertIn("因果効果の十分証拠ではない",t)
 
+    def test_causal_index_precision(self):
+        p=self.idx()["原則"]
+        self.assertTrue(p["design/source記載だけでは因果効果を確定しない"])
+        self.assertTrue(p["executable semanticsは機構的因果根拠になり得る"])
+        self.assertNotIn("因果文書を因果証拠にしない",p)
+    def test_conditional_delta_boundary_synced(self):
+        t=self.read("規定/05_観測と判定.md")
+        self.assertIn("退化分布自体は禁止しない",t)
+        self.assertIn("入出力写像だけではtransducerと退化条件付きLMを一般に分離できない",t)
+
 if __name__=="__main__": unittest.main()

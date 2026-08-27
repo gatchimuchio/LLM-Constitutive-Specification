@@ -18,7 +18,7 @@ def audit():
       "規定/02_大規模言語模型成立.md":["一つの整合した言語確率法則","可変長","energy-based LM","probabilistic grammar","デルタ条件分布","事後的なデルタ表現","BERT encoder artifact","言語模型物 != 言語模型実行系 != 利用系","因果効果の十分証拠ではない"],
       "規定/03_規模記述.md":["比較集合を事後選択","模型物規模","形成規模","利用系規模"],
       "規定/04_運用境界.md":["言語模型物 != 言語模型実行系 != 利用系","retrieval統合系"],
-      "規定/05_観測と判定.md":["厳密LM監査","energy-based LM","posthoc delta","BERT encoder artifact","weighted grammar境界","実行意味から依存関係を形式的に導ける"],
+      "規定/05_観測と判定.md":["厳密LM監査","energy-based LM","posthoc delta","退化分布自体は禁止しない","BERT encoder artifact","weighted grammar境界","実行意味から依存関係を形式的に導ける"],
       "規定/06_再開放.md":[VERSION,"正規化可能性","deterministic transducer","MLM / scoring / representation境界"],
       "README.md":[VERSION,"一つの整合した言語確率法則","energy LM","delta distribution","厳密LM != 局所予測 != scorer != representation != transducer"]
     }
@@ -35,7 +35,7 @@ def audit():
     if not m.exists(): p.append("v7機械監査欠損")
     else:
         mt=m.read_text(encoding="utf-8")
-        for s in ["STRICT_LM_GLOBAL_LAW=true","ENERGY_NORMALIZABILITY_BOUNDARY=true","POSTHOC_DELTA_IS_NOT_EVIDENCE=true","STATUS=PASS"]:
+        for s in ["STRICT_LM_GLOBAL_LAW=true","ENERGY_NORMALIZABILITY_BOUNDARY=true","POSTHOC_DELTA_IS_NOT_EVIDENCE=true","DEGENERATE_DISTRIBUTION_ALLOWED_WHEN_NATIVE=true","STATUS=PASS"]:
             if s not in mt: p.append(f"機械監査欠損:{s}")
     return p
 
