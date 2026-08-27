@@ -30,10 +30,10 @@ class 規定構造試験(unittest.TestCase):
         self.assertFalse((self.root / "artifacts").exists())
         self.assertFalse((self.root / "appendices").exists())
 
-    def test_正本索引がv3確定状態(self) -> None:
+    def test_正本索引がv4確定状態(self) -> None:
         data = json.loads((self.root / "規定" / "正本索引.json").read_text(encoding="utf-8"))
         self.assertEqual(data["正式名称"], "大規模言語模型成立規定")
-        self.assertEqual(data["版"], "2026-08-27-成立規定-3")
+        self.assertEqual(data["版"], "2026-08-28-成立規定-4")
         self.assertEqual(data["状態"], "局所安定正本・再開放可")
         self.assertEqual(data["規定言語"], "日本語")
 
@@ -85,9 +85,33 @@ class 規定構造試験(unittest.TestCase):
         )
         self.assertTrue(data["原則"]["言語模型性と構成再現適合を分離"])
 
-    def test_v3構成再現語彙を保持(self) -> None:
+    def test_v4構成再現成立境界(self) -> None:
+        data = json.loads((self.root / "規定" / "正本索引.json").read_text(encoding="utf-8"))
+        self.assertEqual(
+            data["構成再現成立境界"],
+            [
+                "作用状態性",
+                "状態遷移性",
+                "前段差による後段作用変化",
+                "checkpoint等の実効再利用",
+                "再作用は再採点ではない",
+                "再結合は最終得点合算だけではない",
+                "入力境界からの内生形成",
+            ],
+        )
+        self.assertTrue(data["原則"]["評価メタデータを作用状態と同一視しない"])
+        self.assertTrue(data["原則"]["再採点を再作用と同一視しない"])
+        self.assertTrue(data["原則"]["合成fixtureのみで端到端構成再現を確定しない"])
+
+    def test_v4構成再現語彙を保持(self) -> None:
         text = (self.root / "規定" / "01_基底語彙.md").read_text(encoding="utf-8")
         for phrase in [
+            "## 作用状態",
+            "## 評価メタデータ",
+            "## 状態差",
+            "## 作用",
+            "## 状態遷移",
+            "## 内生形成",
             "## 状態分離",
             "## 状態保持",
             "## 状態更新",
@@ -97,6 +121,18 @@ class 規定構造試験(unittest.TestCase):
             "## 構成再現",
             "## 形成済み関係",
             "## 形成履歴",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_v4非成立境界を本文で固定(self) -> None:
+        text = (self.root / "規定" / "02_大規模言語模型成立.md").read_text(encoding="utf-8")
+        for phrase in [
+            "作用状態と評価メタデータの境界",
+            "同一の作用状態へ同じ評価器を再適用",
+            "七条件の成立境界",
+            "構成再現の非成立例",
+            "入力境界からの内生形成",
+            "checkpoint実効再利用追従",
         ]:
             self.assertIn(phrase, text)
 
@@ -120,6 +156,19 @@ class 規定構造試験(unittest.TestCase):
         text = (self.root / "観測" / "2026-08-27_構成定義機械監査.txt").read_text(encoding="utf-8")
         self.assertIn("RELATION_MACHINE_AUDIT=PASS", text)
         self.assertIn("SOURCE_MAPPING_COUNT=13", text)
+
+    def test_v4観測成果物を保存(self) -> None:
+        for name in [
+            "2026-08-28_構成定義v4変更記録.md",
+            "2026-08-28_構成定義v4機械監査.txt",
+        ]:
+            self.assertTrue((self.root / "観測" / name).exists())
+
+    def test_v4機械監査記録がpass(self) -> None:
+        text = (self.root / "観測" / "2026-08-28_構成定義v4機械監査.txt").read_text(encoding="utf-8")
+        self.assertIn("V4_PRECISION_AUDIT=PASS", text)
+        self.assertIn("V4_BOUNDARY_COUNT=7", text)
+        self.assertIn("V3_SEVEN_CONDITIONS_PRESERVED=PASS", text)
 
     def test_規模三面を維持(self) -> None:
         data = json.loads((self.root / "規定" / "正本索引.json").read_text(encoding="utf-8"))

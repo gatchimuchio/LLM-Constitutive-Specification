@@ -5,9 +5,9 @@ type: software
 authors:
   - family-names: "Ohira"
     given-names: "Teppei"
-version: "2026-08-27-成立規定-3"
-date-released: "2026-08-27"
+version: "2026-08-28-成立規定-4"
+date-released: "2026-08-28"
 repository-code: "https://github.com/gatchimuchio/LLM-Constitutive-Specification"
 abstract: >
-  実在する異種の大規模言語模型群を横断観測し、言語模型性の最小成立条件と、内部能力成立作用を別模型へ忠実に再構成する構成再現条件を分離して規定する。状態分離・保持・更新、意味・関係同一性、未確定差共存、寄与調整、再作用・再結合、終端閉包、形成済み関係の境界をv3で明示した。
+  実在する異種の大規模言語模型群を横断観測し、言語模型性の最小成立条件と、内部能力成立作用を別模型へ忠実に再構成する構成再現条件を分離して規定する。v4ではv3の七区別を維持しつつ、作用状態と評価メタデータ、実効状態遷移、再作用と再採点、checkpoint実効再利用、端到端内生形成の境界を精密化した。
 license: CC-BY-4.0
