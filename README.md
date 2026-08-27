@@ -1,73 +1,42 @@
 # 大規模言語模型成立規定
 
-> **状態:** 局所安定正本 / 再開放可  
-> **版:** 2026-08-28-成立規定-6
+> 状態: 局所安定正本 / 再開放可  
+> 版: 2026-08-28-成立規定-7
 
-このリポジトリは、Large Language Model / LLM の成立・能力・規模・呼称・内部再現を日本語で分離して規定します。
+## v7の中核
 
-## v6の中核
+v6の `条件付き言語重み関係` をさらに独立監査し、**arbitrary scoreとlanguage modelを分け切れていない**と判定しました。
 
-v5の四条件も独立再監査し、そのまま維持しませんでした。
-
-現行の言語模型機能は、固定部品表ではなく次の関係で捉えます。
+現行の厳密LM中核は次です。
 
 ```text
-言語状態空間
-+ 文脈
-+ 持続模型関係
-→ 条件付き言語重み関係
-→ 完全言語状態の重み / factorization / 生成過程へ接続
+完全言語状態空間
++ 持続模型状態
+→ 一つの整合した言語確率法則
 ```
 
-確率分布だけへ限定しません。一方、任意の一意出力装置へ後からデルタ分布を置き、LMへ読み替えることは禁止します。
+local conditional / autoregressive factorization / diffusion / energy等は、このglobal lawを誘導する成立形として扱います。
 
-## 境界control
+## v6からの主要修正
 
-- **n-gram境界:** count / table型でも標準language modelであり、未列挙一般化の弱さだけで排除しません。
-- **compiler境界:** deterministic translationを後付けデルタ分布でLM化しません。
-- **BERT境界:** BERT encoder artifact、MLM pre-training system、MLMから完全系列LMを導出した系を分けます。
-- **retrieval境界:** retrievalだから模型外とも、corpus全量が模型物とも自動判定しません。
+- arbitrary score / ordinal weightingを厳密LM中核から外した。
+- energy LMはglobal normalization / normalizabilityを要求する。
+- arbitrary weighted grammarとprobabilistic grammarを分離した。
+- variable-length LMではEOS / termination / length lawを監査する。
+- deterministic transducerのdelta distributionは数学的には成立し得るため、「delta禁止」ではなく**分類証拠として不十分**へ修正した。
+- 条件付きLM / transducer / MLM / scorer / representation modelを隣接カテゴリとして分離した。
+- source code / design文書だけを因果証拠としない。
 
-## 模型境界
+## 境界
 
 ```text
 言語模型物 != 言語模型実行系 != 利用系
+厳密LM != 局所予測 != scorer != representation != transducer
 ```
 
-この分離によりREALM / RETRO型と、後付けWeb tool型を同じ「retrieval」で潰しません。
+## MINIDORA
 
-## 能力とGPQA
-
-```text
-言語模型機能成立 != 高推論能力 != GPQA高得点
-```
-
-MINIDORAのGPQAは能力監査です。LM成立の証人にも、不成立の自動証拠にも使いません。
-
-## 再現を分ける
-
-- 機能再現
-- 能力再現
-- 構造再現
-- 因果機構再現
-
-構造再現から因果必要性を導かず、因果寄与から直ちに必要条件も導きません。
-
-## 構成語
-
-```text
-構成因果寄与 != 構成必要条件 != 構成不変量
-```
-
-## Large / LLM呼称
-
-`言語模型機能成立`、`LLM機能等価`、`現代LLM呼称適合` を分けます。
-
-小規模な非ニューラル模型がLLM機能等価を示しても、Large呼称は規模プロファイルと現在技術用例を別監査します。
-
-## 正本
-
-`規定/` が現行正本です。`観測/` は監査・反例・変更履歴です。
+GPQAは能力監査です。MINIDORAのLM性は、参照NNの構造コピーではなく、完全言語状態上の整合したLM法則をどの方式で成立させるかを先に監査します。
 
 ## 監査
 
@@ -75,8 +44,3 @@ MINIDORAのGPQAは能力監査です。LM成立の証人にも、不成立の自
 python scripts/規定監査.py
 python -m unittest discover -s tests -p 'test_*.py'
 ```
-
-## ライセンス
-
-- 規定・観測・文書: CC-BY-4.0
-- 監査スクリプト・テスト・CI: Apache-2.0

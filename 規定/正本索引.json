@@ -1,7 +1,7 @@
 {
   "状態": "局所安定正本・再開放可",
   "規定言語": "日本語",
-  "版": "2026-08-28-成立規定-6",
+  "版": "2026-08-28-成立規定-7",
   "正式名称": "大規模言語模型成立規定",
   "正本": [
     "規定/00_規定言語.md",
@@ -12,21 +12,23 @@
     "規定/05_観測と判定.md",
     "規定/06_再開放.md"
   ],
-  "言語模型機能中核": [
-    "言語状態空間",
-    "条件付き言語重み関係",
-    "持続模型関係",
-    "完全言語状態への接続"
+  "厳密LM中核": [
+    "完全言語状態空間",
+    "整合した言語確率法則",
+    "持続模型状態",
+    "local-to-global接続"
+  ],
+  "隣接カテゴリ": [
+    "条件付き言語模型",
+    "局所言語予測作用",
+    "言語score関係",
+    "言語表現模型",
+    "言語変換模型"
   ],
   "境界層": [
     "言語模型物",
     "言語模型実行系",
     "利用系"
-  ],
-  "別軸": [
-    "能力",
-    "規模プロファイル",
-    "現代LLM呼称適合"
   ],
   "再現種別": [
     "機能再現",
@@ -43,44 +45,37 @@
   "positive_control": [
     "n-gram LM",
     "causal LM",
-    "encoder-decoder conditional LM",
     "diffusion LM",
-    "weighted/probabilistic grammar"
+    "energy-based globally normalized LM",
+    "probabilistic grammar LM"
   ],
-  "negative_control": [
-    "compiler/transducer only",
-    "classifier only",
-    "parser/recognizer only",
-    "retriever only",
-    "posthoc delta reinterpretation"
-  ],
-  "境界control": [
-    "BERT encoder artifact",
-    "MLM pre-training system",
-    "MLM-derived full LM",
+  "boundary_control": [
+    "conditional LM vs deterministic transducer",
+    "BERT encoder vs MLM vs derived full LM",
+    "arbitrary score vs normalizable energy LM",
+    "weighted grammar vs probabilistic grammar",
     "retrieval-integrated LM"
   ],
   "大規模性": {
     "方式": "規模プロファイル",
     "比較集合事後選択禁止": true,
-    "模型物中心": true,
+    "模型物と形成規模を分離": true,
     "模型物と実行系を分離": true,
     "利用系規模の無言加算禁止": true
   },
   "原則": {
-    "言語模型機能と能力を分離": true,
-    "言語模型機能と現代LLM呼称を分離": true,
-    "模型物と実行系と利用系を分離": true,
-    "n-gramをLM一般から方式排除しない": true,
-    "compilerを事後デルタでLM化しない": true,
+    "LMとscorerを分離": true,
+    "local conditionalとjointを分離": true,
+    "可変長終端を監査": true,
+    "posthoc deltaは分類証拠にならない": true,
     "BERT_encoderとMLMを分ける": true,
+    "因果文書を因果証拠にしない": true,
     "因果寄与と必要性を分ける": true,
     "構造再現と因果機構再現を分ける": true,
-    "下流失敗で上位定義も再開放": true,
     "MINIDORAを成立証人にしない": true
   },
   "観測資料追加": [
-    "観測/2026-08-28_構成定義v6独立再監査.md",
-    "観測/2026-08-28_構成定義v6機械監査.txt"
+    "観測/2026-08-28_構成定義v7独立再監査.md",
+    "観測/2026-08-28_構成定義v7機械監査.txt"
   ]
 }

@@ -5,9 +5,9 @@ type: software
 authors:
   - family-names: "Ohira"
     given-names: "Teppei"
-version: "2026-08-28-成立規定-6"
+version: "2026-08-28-成立規定-7"
 date-released: "2026-08-28"
 repository-code: "https://github.com/gatchimuchio/LLM-Constitutive-Specification"
 abstract: >
-  Large Language Model / LLMについて、言語模型機能を条件付き言語重み関係として再規定し、n-gram・compiler・BERT/MLMを独立対照として模型境界を監査する。模型物・実行系・利用系、能力・規模・現代LLM呼称、機能・能力・構造・因果機構の再現を分離する。
+  Language Model / Large Language Modelについて、厳密LMを完全言語状態上の整合した確率法則として再規定し、scorer、MLM局所予測、representation model、transducerを分離する。energy modelのnormalizability、可変長終端、条件付きLM境界、模型物/実行系/利用系、再現忠実度と因果語を監査する。
 license: CC-BY-4.0
