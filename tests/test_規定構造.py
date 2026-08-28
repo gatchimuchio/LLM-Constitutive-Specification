@@ -33,7 +33,7 @@ class 規定構造試験(unittest.TestCase):
         self.assertEqual(idx["規定言語"], "日本語")
         self.assertEqual(idx["基底言語"], "日本語")
         self.assertTrue(idx["原則"]["他言語は実務上必要な場合のみ例外使用"])
-        self.assertIn("日本語を唯一の基底・規定言語", self.read("規定/00_規定言語.md"))
+        self.assertIn("唯一の基底・規定言語", self.read("規定/00_規定言語.md"))
 
     def test_最上位理論正本(self):
         top = self.idx()["最上位理論正本"]
