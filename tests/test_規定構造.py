@@ -1,68 +1,129 @@
 from __future__ import annotations
-import importlib.util, json, unittest
+
+import importlib.util
+import json
+import unittest
 from pathlib import Path
+
 
 class 規定構造試験(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.root=Path(__file__).resolve().parents[1]
-        spec=importlib.util.spec_from_file_location("規定監査",cls.root/"scripts/規定監査.py")
+        cls.root = Path(__file__).resolve().parents[1]
+        spec = importlib.util.spec_from_file_location("規定監査", cls.root / "scripts/規定監査.py")
         assert spec and spec.loader
-        mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); cls.mod=mod
-    def idx(self): return json.loads((self.root/"規定/正本索引.json").read_text(encoding="utf-8"))
-    def read(self,p): return (self.root/p).read_text(encoding="utf-8")
-    def test_監査(self): self.assertEqual(self.mod.audit(),[])
-    def test_v7(self): self.assertEqual(self.idx()["版"],"2026-08-28-成立規定-7")
-    def test_厳密LM中核(self): self.assertEqual(self.idx()["厳密LM中核"],["完全言語状態空間","整合した言語確率法則","持続模型状態","local-to-global接続"])
-    def test_ngram(self): self.assertIn("n-gram",self.idx()["positive_control"][0])
-    def test_energy(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("finite partition function",t); self.assertIn("正規化可能",t)
-    def test_weighted_grammar_split(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("arbitrary weighted grammar",t); self.assertIn("probabilistic grammar",t)
-    def test_variable_length(self): self.assertIn("EOS、停止法則、長さ分布",self.read("規定/02_大規模言語模型成立.md"))
-    def test_delta_boundary(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("デルタ条件分布",t); self.assertIn("その系がlanguage distributionを模型化していることを示さない",t)
-        self.assertNotIn("一意出力を事後的にデルタ分布へ読み替えることを禁止する",t)
-    def test_BERT_MLM(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("BERT encoder artifact",t); self.assertIn("joint distribution",t)
-    def test_模型境界(self): self.assertEqual(self.idx()["境界層"],["言語模型物","言語模型実行系","利用系"])
-    def test_因果文書境界(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("因果効果の十分証拠ではない",t)
-        self.assertIn("実行意味から依存関係を形式的に導ける",t)
-    def test_再現四分(self): self.assertEqual(self.idx()["再現種別"],["機能再現","能力再現","構造再現","因果機構再現"])
-    def test_能力分離(self): self.assertIn("GPQAは能力監査",self.read("規定/02_大規模言語模型成立.md"))
-    def test_scale(self): self.assertTrue(self.idx()["大規模性"]["比較集合事後選択禁止"])
-    def test_v6_core_removed(self): self.assertNotIn("→ 条件付き言語重み W_M(. | c)",self.read("規定/02_大規模言語模型成立.md"))
-    def test_audit_records(self):
-        self.assertTrue((self.root/"観測/2026-08-28_構成定義v7独立再監査.md").exists())
-        self.assertTrue((self.root/"観測/2026-08-28_構成定義v7機械監査.txt").exists())
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        cls.mod = mod
 
-    def test_degenerate_distribution_not_banned(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("退化分布そのものは禁止しない",t)
-        self.assertIn("入出力写像という外延だけでは",t)
-    def test_sample_space_closure(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("標本空間そのものを先に固定",t)
-        self.assertIn("無限系列",t)
-    def test_source_semantics_causal_boundary(self):
-        t=self.read("規定/02_大規模言語模型成立.md")
-        self.assertIn("実行意味から依存関係を形式的に導ける",t)
-        self.assertIn("因果効果の十分証拠ではない",t)
+    def idx(self):
+        return json.loads((self.root / "規定/正本索引.json").read_text(encoding="utf-8"))
 
-    def test_causal_index_precision(self):
-        p=self.idx()["原則"]
-        self.assertTrue(p["design/source記載だけでは因果効果を確定しない"])
-        self.assertTrue(p["executable semanticsは機構的因果根拠になり得る"])
-        self.assertNotIn("因果文書を因果証拠にしない",p)
-    def test_conditional_delta_boundary_synced(self):
-        t=self.read("規定/05_観測と判定.md")
-        self.assertIn("退化分布自体は禁止しない",t)
-        self.assertIn("入出力写像だけではtransducerと退化条件付きLMを一般に分離できない",t)
+    def read(self, path: str):
+        return (self.root / path).read_text(encoding="utf-8")
 
-if __name__=="__main__": unittest.main()
+    def test_監査(self):
+        self.assertEqual(self.mod.audit(), [])
+
+    def test_v8(self):
+        self.assertEqual(self.idx()["版"], "2026-08-28-成立規定-8")
+
+    def test_日本語基底(self):
+        idx = self.idx()
+        self.assertEqual(idx["規定言語"], "日本語")
+        self.assertEqual(idx["基底言語"], "日本語")
+        self.assertTrue(idx["原則"]["他言語は実務上必要な場合のみ例外使用"])
+        self.assertIn("日本語を唯一の基底・規定言語", self.read("規定/00_規定言語.md"))
+
+    def test_最上位理論正本(self):
+        top = self.idx()["最上位理論正本"]
+        self.assertEqual(top["リポジトリ"], "https://github.com/gatchimuchio/cognitive-engineering-foundations")
+        self.assertEqual(top["参照コミット"], "60131da52ba7931ed7f82c7648a74ac790f50d08")
+
+    def test_厳密言語模型中核(self):
+        self.assertEqual(
+            self.idx()["厳密言語模型中核"],
+            ["完全言語状態空間", "持続模型状態", "整合した言語確率法則", "局所条件から完全法則への接続"],
+        )
+
+    def test_ngramを方式名で排除しない(self):
+        self.assertIn("n-gram言語模型", self.idx()["成立対照"])
+
+    def test_エネルギー境界(self):
+        text = self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("有限で正の正規化定数", text)
+        self.assertIn("正規化可能な法則", text)
+
+    def test_重み付き文法を分ける(self):
+        text = self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("任意重み付き文法", text)
+        self.assertIn("確率文法型言語模型", text)
+
+    def test_可変長(self):
+        text = self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("終端記号、停止法則、長さ分布", text)
+        self.assertIn("無限系列", text)
+
+    def test_退化分布境界(self):
+        text = self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("退化分布そのものは禁止しない", text)
+        self.assertIn("事後的に一意出力へ確率1を付ける", text)
+
+    def test_BERT境界(self):
+        text = self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("BERT符号化器", text)
+        self.assertIn("伏字予測", text)
+        self.assertIn("完全分布", text)
+
+    def test_模型境界(self):
+        self.assertEqual(self.idx()["境界層"], ["言語模型物", "言語模型実行系", "利用系"])
+
+    def test_再現四分(self):
+        self.assertEqual(self.idx()["再現種別"], ["機能再現", "能力再現", "構造再現", "因果機構再現"])
+
+    def test_能力作用を独立させる(self):
+        idx = self.idx()
+        self.assertEqual(
+            idx["能力作用観測単位"],
+            ["状態担体", "作用", "状態差", "後続利用", "参照変更", "経路変更", "計算量変更", "再参照", "再結合", "循環尺度"],
+        )
+        self.assertTrue(idx["原則"]["能力作用構成を厳密言語模型成立条件へ混入しない"])
+        self.assertIn("厳密言語模型成立\n≠\n高能力", self.read("規定/07_能力作用構成.md"))
+
+    def test_状態存在と後続利用を分ける(self):
+        text = self.read("規定/07_能力作用構成.md")
+        self.assertIn("状態が存在する\n≠ 状態が後続利用される", text)
+        self.assertIn("保存状態数815 / 再利用0", text)
+
+    def test_循環尺度を分ける(self):
+        text = self.read("規定/07_能力作用構成.md")
+        for phrase in ("深さ方向輸送", "系列持続更新", "内部反復", "外部実行循環", "形成循環"):
+            self.assertIn(phrase, text)
+
+    def test_因果境界(self):
+        text = self.read("規定/02_大規模言語模型成立.md")
+        self.assertIn("因果効果の十分根拠ではない", text)
+        self.assertIn("実行意味から依存関係を直接導ける", text)
+
+    def test_再開放に固定順序を置かない(self):
+        text = self.read("規定/06_再開放.md")
+        self.assertIn("固定列は廃止する", text)
+        self.assertIn("これは**優先順位ではない**", text)
+        self.assertTrue(self.idx()["原則"]["再開放に固定順序を置かない"])
+
+    def test_循環再帰(self):
+        text = self.read("規定/06_再開放.md")
+        for phrase in ("構成定義", "構文化", "実装", "実測"):
+            self.assertIn(phrase, text)
+
+    def test_大規模性(self):
+        self.assertTrue(self.idx()["大規模性"]["比較集合事後選択禁止"])
+
+    def test_v8監査記録(self):
+        self.assertTrue((self.root / "観測/2026-08-28_構成定義v8変更記録.md").exists())
+        self.assertTrue((self.root / "観測/2026-08-28_構成定義v8再監査.md").exists())
+        self.assertTrue((self.root / "観測/2026-08-28_構成定義v8機械監査.txt").exists())
+
+
+if __name__ == "__main__":
+    unittest.main()
