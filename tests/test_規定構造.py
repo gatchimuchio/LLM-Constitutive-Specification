@@ -25,8 +25,11 @@ class 規定構造試験(unittest.TestCase):
     def test_監査(self):
         self.assertEqual(self.mod.audit(), [])
 
-    def test_v8(self):
-        self.assertEqual(self.idx()["版"], "2026-08-28-成立規定-8")
+    def test_v9凍結(self):
+        idx = self.idx()
+        self.assertEqual(idx["版"], "2026-08-29-成立規定-9")
+        self.assertEqual(idx["状態"], "凍結正本・射程内反例時のみ再開放")
+        self.assertTrue(idx["原則"]["凍結後は射程内反例のみ再開放"])
 
     def test_日本語基底(self):
         idx = self.idx()
@@ -40,7 +43,7 @@ class 規定構造試験(unittest.TestCase):
         self.assertEqual(top["リポジトリ"], "https://github.com/gatchimuchio/cognitive-engineering-foundations")
         self.assertEqual(top["参照コミット"], "60131da52ba7931ed7f82c7648a74ac790f50d08")
 
-    def test_厳密言語模型中核(self):
+    def test_v8中核を維持(self):
         self.assertEqual(
             self.idx()["厳密言語模型中核"],
             ["完全言語状態空間", "持続模型状態", "整合した言語確率法則", "局所条件から完全法則への接続"],
@@ -105,6 +108,27 @@ class 規定構造試験(unittest.TestCase):
         self.assertIn("因果効果の十分根拠ではない", text)
         self.assertIn("実行意味から依存関係を直接導ける", text)
 
+    def test_局所作用と意思決定構造を分ける(self):
+        text = self.read("規定/08_構成定義の到達限界.md")
+        for phrase in ("観測可能な局所作用群", "局所作用再現", "作用関係再現", "意思決定構造再現", "能力主体"):
+            self.assertIn(phrase, text)
+        self.assertTrue(self.idx()["原則"]["局所作用群を意思決定構造へ昇格しない"])
+
+    def test_MINIDORAとHDS境界(self):
+        idx = self.idx()["MINIDORA_HDS境界"]
+        self.assertTrue(idx["MINIDORAでHDS判断主体が必要"])
+        self.assertTrue(idx["HDSをLLM普遍成立条件にしない"])
+        self.assertTrue(idx["HDS内部原理を本規定で定義しない"])
+        self.assertTrue(idx["HDS改定を本規定へ自動逆流させない"])
+        text = self.read("規定/08_構成定義の到達限界.md")
+        self.assertIn("HDSは本構成定義の答えではない", text)
+        self.assertIn("MINIDORAではHDSを採用する", text)
+
+    def test_HDS変更で再開放しない(self):
+        text = self.read("規定/06_再開放.md")
+        self.assertIn("HDSの内部原理・判断規則・実装の変更", text)
+        self.assertIn("HDSは本規定の射程外", text)
+
     def test_再開放に固定順序を置かない(self):
         text = self.read("規定/06_再開放.md")
         self.assertIn("固定列は廃止する", text)
@@ -119,10 +143,14 @@ class 規定構造試験(unittest.TestCase):
     def test_大規模性(self):
         self.assertTrue(self.idx()["大規模性"]["比較集合事後選択禁止"])
 
-    def test_v8監査記録(self):
-        self.assertTrue((self.root / "観測/2026-08-28_構成定義v8変更記録.md").exists())
-        self.assertTrue((self.root / "観測/2026-08-28_構成定義v8再監査.md").exists())
-        self.assertTrue((self.root / "観測/2026-08-28_構成定義v8機械監査.txt").exists())
+    def test_v9監査記録(self):
+        self.assertTrue((self.root / "観測/2026-08-29_構成定義v9変更記録.md").exists())
+        self.assertTrue((self.root / "観測/2026-08-29_構成定義v9再監査.md").exists())
+        self.assertTrue((self.root / "観測/2026-08-29_構成定義v9機械監査.txt").exists())
+
+    def test_FROZEN(self):
+        self.assertTrue((self.root / "FROZEN.md").exists())
+        self.assertIn("通常改訂は停止する", self.read("FROZEN.md"))
 
 
 if __name__ == "__main__":
